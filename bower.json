@@ -1,0 +1,13 @@
+{
+  "name": "santy-framework",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "font-awesome": "latest",
+    "bootstrap-sass": "latest"
+  }
+}

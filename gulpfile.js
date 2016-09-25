@@ -7,10 +7,14 @@ var gulp = require('gulp'),
 
 var paths = {
     src: {
-        scss: './public/css/sass/**/*.scss'
+        scss: './public/css/sass/**/*.scss',
+        bootstrap: './public/vendor/bootstrap/stylesheets/*.scss',
+        fontawesome: './public/vendor/font-awesome/stylesheets/*.scss'
     },
     dest: {
-        css: './public/css'
+        css: './public/css',
+        bootstrap: './public/css',
+        fontawesome: './public/css'
     },
     node: {
         script: './server/app.js'
@@ -22,14 +26,26 @@ gulp.task('sass', function () {
         .pipe(plugins.cssmin())
         .pipe(plugins.concat("app.min.css"))
         .pipe(gulp.dest(paths.dest.css));
-    // .pipe(livereload());
+});
+
+gulp.task('bootstrap', function () {
+    console.log('paths.src.bootstrap=', paths.src.bootstrap);
+    return sass(paths.src.bootstrap)
+        .pipe(plugins.cssmin())
+        .pipe(gulp.dest(paths.dest.bootstrap));
+});
+
+gulp.task('fontawesome', function () {
+    console.log('paths.src.fontawesome=', paths.src.fontawesome);
+    return sass(paths.src.fontawesome)
+        .pipe(plugins.cssmin())
+        .pipe(gulp.dest(paths.dest.fontawesome));
 });
 
 gulp.task('watch', function () {
-    // livereload.createServer();
-    // livereload.watch(__dirname + paths.src.scss);
-    // livereload.listen();
     gulp.watch(paths.src.scss, ['sass']);
+    gulp.watch(paths.src.bootstrap, ['bootstrap']);
+    gulp.watch(paths.src.fontawesome, ['fontawesome']);
 });
 
 gulp.task('develop', function () {
@@ -48,7 +64,7 @@ gulp.task('develop', function () {
 });
 
 gulp.task('default', [
-    'sass',
+    'sass', 'bootstrap', 'fontawesome',
     'develop',
     'watch'
 ]);
